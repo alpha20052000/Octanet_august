@@ -1,0 +1,92 @@
+import time  # Sort the import alphabetically
+
+# ATM simulation program
+
+
+# ATM simulation program
+def main():
+    # Initialize balance, pin, and transaction history
+    balance = 100000
+    pin = 4567
+    transaction_history = []
+
+    # Welcome message
+    print("Welcome to the ATM")
+    time.sleep(1)
+    print("Please enter your card")
+    time.sleep(3)
+    print("Please enter your pin")
+
+    # Pin verification
+    pin_attempt = int(input("Enter your pin: "))
+    if pin_attempt == pin:
+        while True:
+            # Display menu
+            print("Please select an option:")
+            print("1. Balance inquiry")
+            print("2. Withdrawal")
+            print("3. Deposit")
+            print("4. Change pin")
+            print("5. Transaction history")
+            print("6. Exit")
+
+            try:
+                # Get user input
+                option = int(input("Enter your option: "))
+            except ValueError:
+                print("Invalid input. Please enter a number from 1 to 6.")
+                continue
+
+            if option == 1:
+                # Balance inquiry
+                print(f"Your current balance is ${balance}")
+            elif option == 2:
+                # Withdrawal
+                amount = float(input("Enter the amount to withdraw: "))
+                if 0 < amount <= balance:
+                    balance -= amount
+                    transaction_history.append(f"Withdrawal: ${amount}")
+                    print(
+                        f"Withdrawal successful. Your new balance is ${balance}"
+                    )
+                else:
+                    print("Invalid amount. Please try again.")
+            elif option == 3:
+                # Deposit
+                amount = float(input("Enter the amount to deposit: "))
+                if amount > 0:
+                    balance += amount
+                    transaction_history.append(f"Deposit: ${amount}")
+                    print(
+                        f"Deposit successful. Your new balance is ${balance}")
+                else:
+                    print("Invalid amount. Please try again.")
+            elif option == 4:
+                # Change pin
+                old_pin = int(input(" please Enter your current pin: "))
+                if old_pin == pin:
+                    new_pin = int(input("Please enter your PIN: "))
+                    pin = new_pin
+                    transaction_history.append(
+                        f"Changed pin from {old_pin}to{new_pin}")
+                    print("Pin changed successfully.")
+
+                else:
+                    print("Invalid old pin. Please try again.")
+            elif option == 5:
+                # Transaction history
+                print("Transaction history:")
+                for transaction in transaction_history:
+                    print(transaction)
+            elif option == 6:
+                # Exit
+                print("Thank you for using the ATM.")
+                break
+            else:
+                print("Invalid option. Please try again.")
+    else:
+        print("Invalid pin. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
